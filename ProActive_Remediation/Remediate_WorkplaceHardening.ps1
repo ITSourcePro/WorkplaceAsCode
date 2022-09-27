@@ -22,8 +22,8 @@ try
         Remove-ItemProperty -Path $REG_CREDG -Name "RunAsPPL" -Force -ErrorAction SilentlyContinue
         New-ItemProperty -Path $REG_CREDG -Name "RunAsPPL" -Value "1"  -PropertyType Dword
 
-        #Set lockout threshold to 10 
-        net accounts /lockoutthreshold:10
+        #Set Microsoft minimums for local accounts 
+        Net Accounts /MinPWAge:1 /MaxPWAge:60 /MinPWLen:14 /UniquePW:24 /LockoutThreshold:10 /LockoutDuration:15 /LockoutWindow:15
 
         #Enable Application guard if meet the minimum specs
         if(((Get-computerinfo).OsTotalVisibleMemorySize /1024000) -gt "8") 
